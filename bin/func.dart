@@ -13,7 +13,29 @@ String say(String from, String msg, [String? device]) {
 bool topLevel = true;
 
 
+//dart는 리턴타입 정의안해도 됨
+
+void hello(){
+  print("hello");
+}
+
+//익명함수
+Function hi = () {
+  print("hi");
+};
+
+var add2 = (num) => num+1;
+
+
+void highOrderFunc(Function(dynamic num) add2){
+  var i = add2(10);
+  print(i);
+}
+
+
 void main(){
+
+  highOrderFunc(add2);
 
   const list = ['apples', 'bananas', 'oranges'];
   list.map((item) {
