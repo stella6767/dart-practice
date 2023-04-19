@@ -4,24 +4,21 @@
 //
 
 abstract class _Champion {
-
   final String name;
   final List<String> skillSet;
 
   _Champion(this.name, this.skillSet);
 
   _Champion.fromList(List values)
-    : this.name = values[0],
-      this.skillSet = values[1];
+      : this.name = values[0],
+        this.skillSet = values[1];
 
-  void sayHi(){
+  void sayHi() {
     print('안녈하세요. 제 이름은 ${this.name} 입니다.');
   }
 }
 
-
 class Panteon implements _Champion, Queue {
-
   @override
   String get name => throw UnimplementedError();
 
@@ -32,7 +29,6 @@ class Panteon implements _Champion, Queue {
 
   @override
   List<String> get skillSet => throw UnimplementedError();
-
 }
 
 class Queue {
@@ -45,14 +41,10 @@ class Queue {
  * 하지만 인터페이스 역할이 abstract class, implements 해주면 된다. 인터페이스는 다중상속이 가능
  */
 
-
 class Ari extends _Champion with Musical {
-
   final String _tail;
 
-  Ari(this._tail, name, skillSet): super(
-    name, skillSet
-  );
+  Ari(this._tail, name, skillSet) : super(name, skillSet);
 
   //기존에 이미 생성된 인스턴스가 있다면 return 하여 재사용한다.
   //하나의 클래스에서 하나의 인스턴스만 생성한다(싱글톤 패턴).
@@ -67,18 +59,16 @@ class Ari extends _Champion with Musical {
    * 다트에서 private 맴버의 접근범위는 동일 클래스가 아니라 라이브러리 (자바 기준으로 패키지) 기준.
    */
 
-  _sayMyTail(){
+  _sayMyTail() {
     print('내 꼬리 $_tail');
   }
 
   @override
-  void sayHi(){
+  void sayHi() {
     super.sayHi();
     this._sayMyTail();
   }
 }
-
-
 
 class Logger {
   final String name;
@@ -103,8 +93,8 @@ class Logger {
   }
 }
 
-
-mixin Musical {  //생성자 없는 클래스? 인스턴스화 될 수 없다.
+mixin Musical {
+  //생성자 없는 클래스? 인스턴스화 될 수 없다.
   bool canPlayPiano = false;
   bool canCompose = false;
   bool canConduct = false;
@@ -125,37 +115,32 @@ mixin MusicalPerformer on Musical {
 }
 
 void main() {
-
   //var champ1 = _Champion("10", ["Q"]);
 
-  _Champion ari = Ari("붉은색꼬리", "10" , ["Q"]);
-  _Champion ari2 = Ari("푸른꼬리", "10" , ["Q"]);
+  _Champion ari = Ari("붉은색꼬리", "10", ["Q"]);
+  _Champion ari2 = Ari("푸른꼬리", "10", ["Q"]);
   ari.sayHi();
   print(ari == ari2);
 
   //print('${ari._tail}');
 
-  var log = Logger.fromJson( {"name": "value"} );
-  var log2 = Logger.fromJson( {"name": "value2"} );
+  var log = Logger.fromJson({"name": "value"});
+  var log2 = Logger.fromJson({"name": "value2"});
 
   print(log == log2);
   //print(log.name);
 
-  _Champion ari3 = Ari.fromFactory("붉은색꼬리", "10" , ["Q"]);
-  _Champion ari4 = Ari.fromFactory("붉은색꼬리", "10" , ["Q"]);
+  _Champion ari3 = Ari.fromFactory("붉은색꼬리", "10", ["Q"]);
+  _Champion ari4 = Ari.fromFactory("붉은색꼬리", "10", ["Q"]);
   print(ari3 == ari4);
-
-
-
 }
-
 
 abstract class Event {
   void run();
 }
 
 class _AnonymousEvent implements Event {
-  _AnonymousEvent({required run()}): _run = run;
+  _AnonymousEvent({required run()}) : _run = run;
 
   final void Function() _run;
 
@@ -167,4 +152,25 @@ Event createAnonymousEvent() {
   return _AnonymousEvent(
     run: () => print('run'),
   );
+}
+
+class Customer {
+  String name;
+  int age;
+  String location;
+
+  Customer(String name, [int age = 0, String location = "Korea"])
+      : this.name = name,
+        this.age = age,
+        this.location = location;
+
+  Customer.createInstance({required String name, int age = 0, String location = "Korea"})
+      : this.name = name,
+        this.age = age,
+        this.location = location;
+
+  @override
+  String toString() {
+    return "Customer [name=${this.name},age=${this.age},location=${this.location}]";
+  }
 }
